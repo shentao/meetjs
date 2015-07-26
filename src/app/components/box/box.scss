@@ -1,0 +1,23 @@
+.box {
+  background-color: #6EC8D6;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  transform: translate3d(10px, 5px, 20px);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+@for $i from 1 through 36 {
+  .box:nth-child(#{$i}) {
+    background-color: hsl($i * 55, 70%, 80%);
+  }
+}
