@@ -1,5 +1,5 @@
 angular.module "meetjs"
-.controller "MainController", ($scope, $firebaseArray) ->
+.controller "MainController", ($scope, $firebaseArray, $interval) ->
 
   @playerList = $firebaseArray(new Firebase("https://meetjswroclaw.firebaseio.com/players"))
 
@@ -59,11 +59,11 @@ angular.module "meetjs"
           if tilt.y > 60 then tilt.y = 60
           if tilt.y < -60 then tilt.y = -60
 
-          updatePositions(tilt.x, tilt.y)
+      .catch (message) ->
+        console.error message
 
-
-    .catch (message) ->
-      console.error message
-
+    update = $interval((->
+      updatePositions(tilt.x, tilt.y)
+    ), 75)
 
   return this
