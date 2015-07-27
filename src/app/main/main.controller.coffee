@@ -59,8 +59,7 @@ angular.module "meetjs"
           if tilt.y > 60 then tilt.y = 60
           if tilt.y < -60 then tilt.y = -60
 
-          $scope.$apply ->
-            updatePositions(tilt.x, tilt.y)
+          updatePositions(tilt.x, tilt.y)
 
 
     .catch (message) ->
