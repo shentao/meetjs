@@ -36,8 +36,8 @@ angular.module "meetjs"
     unless !thisPlayer.alive
       for player, index in allPlayers
         unless index is refId
-          if (thisPlayer.position.x >= player.position.x - 3) && (thisPlayer.position.x <= player.position.x + 3)
-            if (thisPlayer.position.y >= player.position.y - 3) && (thisPlayer.position.y <= player.position.y + 3)
+          if (thisPlayer.position.x >= player.position.x - 4) && (thisPlayer.position.x <= player.position.x + 4)
+            if (thisPlayer.position.y >= player.position.y - 4) && (thisPlayer.position.y <= player.position.y + 4)
               @playerList[index].alive = false
               @playerList.$save(index)
 

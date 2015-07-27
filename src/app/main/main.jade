@@ -7,4 +7,4 @@ acme-navbar
 .game
   box(ng-repeat="player in main.playerList track by $index" player="player")
 
-button.button.small.attack(ng-click="main.checkIfHit()") HIT IT!
+button.button.attack.hide-for-medium-up(ng-click="main.checkIfHit()") HIT IT!
