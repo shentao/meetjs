@@ -24,12 +24,14 @@ angular.module "meetjs"
 
     link: (scope, element, attrs, ctrls) ->
 
-      screenWidth = window.innerWidth
-      screenHeight = window.innerHeight
-
       scope.$watch (player) ->
-        transformBox()
+        if !player.player.alive
+          element.addClass('dead')
+
+        else
+          transformBox()
 
       transformBox = ->
         element[0].style['transform'] = 'translate3d(' + scope.player.position.x * 5 + 'px, ' + scope.player.position.y * 5 + 'px, 0)'
 
+      transformBox()

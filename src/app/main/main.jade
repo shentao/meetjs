@@ -5,4 +5,6 @@ acme-navbar
   button.button.expand(ng-click="main.login()" ng-disabled="main.playerName.length <= 0") PLAY!
 
 .game
-  box(ng-repeat="player in main.playerList track by player.playerName" player="player")
+  box(ng-repeat="player in main.playerList track by $index" player="player")
+
+button.button.small.attack(ng-click="main.checkIfHit()") HIT IT!

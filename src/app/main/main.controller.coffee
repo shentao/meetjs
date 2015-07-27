@@ -15,6 +15,7 @@ angular.module "meetjs"
   @login = =>
     newPlayer =
       playerName: @playerName
+      alive: true
       position:
         x: 0
         y: 0
@@ -28,6 +29,17 @@ angular.module "meetjs"
         startGame()
 
 
+  @checkIfHit = =>
+    allPlayers = @playerList
+    thisPlayer = @playerList[refId]
+
+    unless !thisPlayer.alive
+      for player, index in allPlayers
+        unless index is refId
+          if (thisPlayer.position.x >= player.position.x - 3) && (thisPlayer.position.x <= player.position.x + 3)
+            if (thisPlayer.position.y >= player.position.y - 3) && (thisPlayer.position.y <= player.position.y + 3)
+              @playerList[index].alive = false
+              @playerList.$save(index)
 
   updatePositions = (x, y) =>
     @playerList[refId].position.x = x
@@ -64,6 +76,6 @@ angular.module "meetjs"
 
     update = $interval((->
       updatePositions(tilt.x, tilt.y)
-    ), 75)
+    ), 100)
 
   return this
