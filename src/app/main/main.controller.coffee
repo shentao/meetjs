@@ -40,21 +40,28 @@ angular.module "meetjs"
       x: 0
       y: 0
 
-    ftPromise = new FULLTILT.getDeviceOrientation({ 'type': 'world' })
+    ftPromise = new FULLTILT.getDeviceOrientation()
     ftPromise
       .then (orientationControl) ->
         orientationControl.listen ->
-          # if (euler.beta > 85 && euler.beta < 95)
-            # return
 
           euler = orientationControl.getScreenAdjustedEuler()
+          if (euler.beta > 85 && euler.beta < 95)
+            return
 
-          tilt.x = tilt.x + euler.gamma * 0.1
+          tilt.x = tilt.x + euler.gamma * 0.05
 
-          tilt.y = tilt.y + euler.beta * 0.1
+          tilt.y = tilt.y + euler.beta * 0.05
+
+          if tilt.x > 60 then tilt.x = 60
+          if tilt.x < -60 then tilt.x = -60
+
+          if tilt.y > 60 then tilt.y = 60
+          if tilt.y < -60 then tilt.y = -60
 
           $scope.$apply ->
             updatePositions(tilt.x, tilt.y)
+
 
     .catch (message) ->
       console.error message
