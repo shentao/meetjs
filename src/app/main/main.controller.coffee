@@ -33,11 +33,11 @@ angular.module "meetjs"
     allPlayers = @playerList
     thisPlayer = @playerList[refId]
 
-    unless !thisPlayer.alive
+    if @playerList[refId].alive
       for player, index in allPlayers
-        unless index is refId
-          if (thisPlayer.position.x >= player.position.x - 4) && (thisPlayer.position.x <= player.position.x + 4)
-            if (thisPlayer.position.y >= player.position.y - 4) && (thisPlayer.position.y <= player.position.y + 4)
+        if index isnt refId
+          if (thisPlayer.position.x >= player.position.x - 5) && (thisPlayer.position.x <= player.position.x + 5)
+            if (thisPlayer.position.y >= player.position.y - 5) && (thisPlayer.position.y <= player.position.y + 5)
               @playerList[index].alive = false
               @playerList.$save(index)
 
@@ -76,6 +76,8 @@ angular.module "meetjs"
 
     update = $interval((->
       updatePositions(tilt.x, tilt.y)
+      if @playerList[refId].alive is false
+        update()
     ), 100)
 
   return this
