@@ -1,1 +1,1 @@
-angular.module 'meetjs', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngRoute', 'firebase', 'rt.debounce']
+angular.module 'meetjs', ['ngTouch', 'ngRoute', 'firebase']
