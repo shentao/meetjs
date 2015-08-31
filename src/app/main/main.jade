@@ -1,10 +1,26 @@
 acme-navbar
 
-.panel.hide-for-medium-up(ng-if="!main.isPlayer && !main.isSpectator")
+.panel.hide-for-large-up(ng-if="!main.isPlayer && !main.isSpectator")
   input(type="text" placeholder="Enter player name" ng-model="main.playerName")
   button.button.expand(ng-click="main.login()" ng-disabled="main.playerName.length <= 0") PLAY!
 
-.game
+.game(ng-if="main.isSpectator")
   box(ng-repeat="player in main.playerList track by $index" player="player")
 
-button.button.attack.hide-for-medium-up(ng-click="main.checkIfHit()") HIT IT!
+  .ranking
+    h1.ranking-header.text-center Score:
+    table
+      thead
+        tr
+          td Player
+          td Kills
+      tbody
+        tr(ng-repeat="player in main.playerList | orderBy : ['-alive', '-kills'] track by $index" player="player" ng-class="{ 'alive': player.alive }")
+          td
+            span.handle ({{ player.playerName | limitTo: 3 }})
+            |  {{ player.playerName }}
+          td {{ player.kills }}
+
+button.button.attack(ng-click="main.checkIfHit()" ng-if="main.isPlayer && main.playerIsAlive" ng-disabled="!main.ready")
+  span(ng-show="main.ready") FIRE!
+  span(ng-show="!main.ready") Reloading

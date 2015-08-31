@@ -1,5 +1,5 @@
 .box {
-  background-color: #6EC8D6;
+  // background-color: #6EC8D6;
   width: 60px;
   height: 60px;
   border-radius: 100%;
@@ -11,6 +11,33 @@
   margin: auto;
   transform: translate3d(10px, 5px, 20px);
   transition: transform 0.05s linear, background-color 0.2s ease;
+  z-index: 2;
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    border-radius: 100%;
+    z-index: -1;
+    width: 60px;
+    height: 60px;
+  }
+
+  &:before {
+    transition: none;
+    transform: scale(0);
+  }
+
+  &:after {
+    transform: scale(1);
+    transition: transform 1.5s linear;
+  }
 
   p {
     color: white;
@@ -31,10 +58,36 @@
 .dead {
   background-color: #343737 !important;
   border-bottom: 8px solid #A41A1B;
+
+  &:before,
+  &:after {
+    display: none
+  }
 }
 
 @for $i from 1 through 36 {
   .box:nth-child(#{$i}) {
     background-color: hsl($i * 55, 70%, 80%);
+
+    &:before {
+      background-color: hsl($i * 55, 70%, 50%);
+    }
+    &:after {
+      background-color: hsl($i * 55, 70%, 60%);
+    }
+  }
+}
+
+.attacking {
+
+  &:before {
+    transition: transform 0.4s ease, opacity 0.6s ease;
+    transform: scale(2);
+    opacity: 0;
+  }
+
+  &:after {
+    transform: scale(0);
+    transition: none;
   }
 }
